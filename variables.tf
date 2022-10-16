@@ -8,7 +8,7 @@ variable "compartment_ocid" {}
 
 
 variable "user_email" {
-  default = "huy.nguyen.d@gmail.com"
+  default = "huy.d.nguyen@outlook.com"
 }
 
 variable "user_ocid" {
