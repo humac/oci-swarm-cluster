@@ -10,7 +10,7 @@ services:
                 - traefik.enable=true
                 - traefik.docker.network=lb_network
                 - traefik.constraint-label=traefik-public
-                - traefik.http.routers.whoami.rule=Path(`/whoami`)
+                - traefik.http.routers.whoami.rule=Path('/whoami')
                 - traefik.http.services.whoami.loadbalancer.server.port=80
         networks:
             - lb_network
@@ -30,7 +30,7 @@ services:
                 - traefik.enable=true
                 - traefik.docker.network=lb_network
                 - traefik.constraint-label=traefik-public
-                - traefik.http.routers.registry.rule=(Host(`registry-oci.keydatalab.ca`) && PathPrefix(`/v2/`))
+                - traefik.http.routers.registry.rule=(Host('registry-oci.jvhlabs.com') && PathPrefix('/v2/'))
                 - traefik.http.routers.registry.entrypoints=https
                 - traefik.http.routers.registry.tls=true
                 - traefik.http.routers.registry.tls.certresolver=le
@@ -70,7 +70,7 @@ services:
                 - traefik.enable=true
                 - traefik.docker.network=lb_network
                 - traefik.constraint-label=traefik-public
-                - traefik.http.routers.portainer.rule=(Host(`portainer-oci.keydatalab.ca`) && PathPrefix(`/`))
+                - traefik.http.routers.portainer.rule=(Host('portainer-oci.jvhlabs.com') && PathPrefix('/'))
                 - traefik.http.routers.portainer.entrypoints=https
                 - traefik.http.routers.portainer.tls=true
                 - traefik.http.routers.portainer.tls.certresolver=le
@@ -102,13 +102,13 @@ services:
             - registry:/data
         command:
             - --providers.docker
-            - --providers.docker.constraints=Label(`traefik.constraint-label`, `traefik-public`)
+            - --providers.docker.constraints=Label('traefik.constraint-label', 'traefik-public')
             - --providers.docker.exposedbydefault=false
             - --providers.docker.swarmmode
             - --entrypoints.http.address=:80
             - --entrypoints.https.address=:443
             - --serversTransport.insecureSkipVerify=true
-            - --certificatesresolvers.le.acme.email=marcelo.ochoa@gmail.com
+            - --certificatesresolvers.le.acme.email=huy.nguyen.d@gmail.com
             - --certificatesresolvers.le.acme.storage=/data/acme.json
             - --certificatesresolvers.le.acme.tlschallenge=true
             - --entryPoints.http.forwardedHeaders.trustedIPs=127.0.0.1/32,10.1.22.0/24
